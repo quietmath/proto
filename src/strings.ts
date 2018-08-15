@@ -4,7 +4,11 @@ import { IString } from "./types";
  * @module metronical.proto
  */
 
-export class s implements IString {
+export function s(value: string): IString {
+    return new _s(value);
+}
+
+class _s implements IString {
     private value: string;
     constructor(private readonly _value: string = "") {
         this.value = this._value;
