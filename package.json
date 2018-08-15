@@ -21,11 +21,7 @@
     "strings",
     "arrays",
     "numbers",
-    "objects",
-    "booleans",
-    "elements",
-    "xml",
-    "json"
+    "objects"
   ],
   "author": "Michael Szul <michael@szul.us>",
   "license": "MIT",

@@ -20,72 +20,30 @@ export interface IString {
     toBool: () => boolean;
     contains: (val: string) => boolean;
     slugify: (lower?: boolean) => IString;
-    getValueByKey: (key: string) => IString;
+    getValueByKey: (key: string) => string;
     setValueByKey: (key: string, replacement: string) => IString;
     isNullOrEmpty: (val: any) => boolean;
     toString: () => string;
 }
 
-/*
 export interface INumber {
     toBool: () => boolean;
-    random: (min: number, max: number) => number;
+    random: (min: number, max: number) => INumber;
+    toNumber: () => number;
 }
 
-interface IArray<T> {
-    empty: () => Array<any>;
+export interface IArray<T> {
+    empty: () => IArray<T>;
     isEmpty: () => boolean;
     each: (callback: Function) => void;
-    remove: (item: any) => any;
+    remove: (item: T) => IArray<T>;
     contains: (partial: string, strict: boolean) => boolean;
     indexOfPartial: (partial: string) => number;
-    toObjectArray: (objName: string) => Array<any>;
+    toObjectArray: (objName: string) => IArray<T>;
+    toArray: () => Array<T>;
 }
 
-interface IObject {
-    extend: (dest: any, src: any) => any;
+export interface IObject {
+    extend: (data: any) => IObject;
+    toObject: () => any;
 }
-
-interface IDocument {
-    selectOne: (selector: string) => Element;
-    selectAll: (selector: string) => NodeListOf<IElement>;
-    create: (html: string) => Element;
-}
-
-interface INodeList {
-    each: (callback: Function) => void;
-    last: () => Element;
-}
-
-interface IElement {
-    attribute: (name: string, value?: string) => string & Element;
-    parent: () => Element;
-    first: (selector: string) => Element;
-    append: (html: string) => Element;
-    empty: () => Element;
-    drop: () => Element;
-    removeEvent: (event: string) => Element;
-    addEvent: (event: string, callback: Function, overwrite?: boolean) => Element;
-    show: (t?: string) => Element | void;
-    hide: () => Element;
-    toggle:()=> Element;
-    addClass: (className: string) => Element;
-    removeClass: (className: string) => Element;
-    asString: () => string;
-    selectOne: (selector: string) => Element;
-    selectAll: (selector: string) => NodeListOf<Element>;
-    hasMatches: (selector: string) => boolean;
-    up: (selector: string) => Element;
-    isHidden: () => Boolean;
-    val: (val?: string) => string;
-}
-
-interface IHTMLElement {
-    clean: () => HTMLElement;
-    val: (val?: string) => string;
-}
-
-interface IXMLHttpRequest {
-    responseJSON: () => JSON;
-}
-*/

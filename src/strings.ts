@@ -34,57 +34,63 @@ class _s implements IString {
         return this;
     }
     public normalize(): IString {
-        return this.replace(/^\s*|\s(?=\s)|\s*$/g, "");
+        this.value = this.value.replace(/^\s*|\s(?=\s)|\s*$/g, "");
+        return this;
     }
     public startsWith(part: string, pos?: number): boolean {
-        return this.slice(0, part.length) == part;
+        return this.value.slice(0, part.length) == part;
     }
     public endsWith(part: string, pos?: number): boolean {
-        return this.slice(part.length) == part;
+        return this.value.slice(part.length) == part;
     }
     public capFirst(): IString {
-        if (this.length == 1) {
-            return this.toUpperCase();
+        if (this.value.length == 1) {
+            this.value = this.value.toUpperCase();
+            return this;
         }
-        else if (this.length > 0) {
+        else if (this.value.length > 0) {
             let regex: RegExp = /^(\(|\[|"|')/;
-            if (regex.test(this)) {
-                return this.substring(0, 2).toUpperCase() + this.substring(2);
+            if (regex.test(this.value)) {
+                this.value = this.value.substring(0, 2).toUpperCase() + this.value.substring(2);
+                return this;
             }
             else {
-                return this.substring(0, 1).toUpperCase() + this.substring(1);
+                this.value = this.value.substring(0, 1).toUpperCase() + this.value.substring(1);
+                return this;
             }
         }
         return null;
     }
     public capWords(): IString {
         let regexp: RegExp = /\s/;
-        let words = this.split(regexp);
+        let words = this.value.split(regexp);
         if (words.length == 1) {
-            return words[0].capFirst();
+            return s(words[0]).capFirst();
         }
         else if (words.length > 1) {
             let result: string = '';
             for (let i = 0; i < words.length; i++) {
-                if (words[i].capFirst() !== null) {
-                    result += words[i].capFirst() + ' ';
+                if (s(words[i]).capFirst() !== null) {
+                    result += s(words[i]).capFirst() + ' ';
                 }
             }
-            result.trim();
-            return result;
+            this.value = result.trim();
+            return this;
         }
         return null;
     }
     public truncateWords(num: number): IString {
-        let words: Array<string> = this.split(/\s+/);
+        let words: Array<string> = this.value.split(/\s+/);
         if (words.length > num) {
-            return words.slice(0, num).join(' ');
+            this.value = words.slice(0, num).join(' ');
+            return this;
         }
-        return words.join(' ');
+        this.value = words.join(' ');
+        return this;
     }
     public truncateWordsWithHtml(num: number): IString {
         let tags: Array<string> = [];
-        let truncation: string = this.truncateWords(num);
+        let truncation: string = this.truncateWords(num).toString();
         let matches: RegExpMatchArray = truncation.match(/<[\/]?([^> ]+)[^>]*>/g);
         for (let i: number = 0; i < matches.length; i++) {
             let opening: string = matches[i].replace('/', '');
@@ -101,49 +107,53 @@ class _s implements IString {
         for (let i: number = 0; i < tags.length; i++) {
             truncation += tags[i].replace('<', '</').replace(/(\s*)(\w+)=("[^<>"]*"|'[^<>']*'|\w+)/g, '');
         }
-        return truncation;
+        return s(truncation);
     }
     public stripHtml(): IString {
-        let content: string = this.replace(/<[\/]?([^> ]+)[^>]*>/g, '');
+        let content: string = this.value.replace(/<[\/]?([^> ]+)[^>]*>/g, '');
         content = content.replace(/<style[^>]*>[\s\S]*?<\/style>/ig, '');
         content = content.replace(/<script[^>]*>[\s\S]*?<\/script>/ig, '');
         content = content.replace(/<!--[\s\S]*?-->/g, '');
         content = content.replace('&nbsp;', ' ');
         content = content.replace('&amp;', '&');
-        return content;
+        this.value = content;
+        return this;
     }
     public escapeHtml(): IString {
-        let content: string = this.replace(/"/g, '&quot;');
+        let content: string = this.value.replace(/"/g, '&quot;');
         content.replace(/&(?!\w+;)/g, '&amp;');
         content.replace(/>/g, '&gt;');
         content.replace(/</g, '&lt;');
-        return content;
+        this.value = content;
+        return this;
     }
     public toBool(): boolean {
-        if ((<any>String).isNullOrEmpty(this)) {
+        if (this.isNullOrEmpty()) {
             return false;
         }
-        else if (this.lower() === "true" || this.lower() === "1" || this.lower() === "y" || this.lower() === "t") {
+        else if (this.lower().toString() === "true" || this.lower().toString() === "1" || this.lower().toString() === "y" || this.lower().toString() === "t") {
             return true;
         }
         return false;
     }
     public contains(val: string): boolean {
-        if (this.indexOf(val) !== -1) {
+        if (this.value.indexOf(val) !== -1) {
             return true;
         }
         return false;
     }
     public slugify(lower: boolean = true): IString {
         if (!lower) {
-            return this.lower().normalize().replace(/[^a-z0-9]/gi, '-');
+            this.value = this.lower().normalize().toString().replace(/[^a-z0-9]/gi, '-');
+            return this;
         }
-        return this.normalize().replace(/[^a-z0-9]/gi, '-');
+        this.value = this.normalize().toString().replace(/[^a-z0-9]/gi, '-');
+        return this;
     }
-    public getValueByKey(key: string): IString {
-        var collection: Array<string> = this.split(";");
+    public getValueByKey(key: string): string {
+        var collection: Array<string> = this.value.split(";");
         for (let i = 0; i < collection.length; i++) {
-            if (collection[i].contains(":")) {
+            if (s(collection[i]).contains(":")) {
                 let pairs = collection[i].split(":");
                 if (pairs[0] == key) {
                     return pairs[1];
@@ -153,10 +163,10 @@ class _s implements IString {
         return null;
     }
     public setValueByKey(key: string, replacement: string): IString {
-        var collection: Array<string> = this.split(";");
+        var collection: Array<string> = this.value.split(";");
         var returnCollection: Array<string> = [];
         for (let i = 0; i < collection.length; i++) {
-            if (collection[i].contains(":")) {
+            if (s(collection[i]).contains(":")) {
                 let pairs = collection[i].split(":");
                 if (pairs[0] == key) {
                     pairs[1] = replacement;
@@ -164,12 +174,15 @@ class _s implements IString {
                 returnCollection.push(pairs.join(":"));
             }
         }
-        return returnCollection.join(';');
+        return s(returnCollection.join(';'));
     }
-    public isNullOrEmpty(val: any): boolean {
-        if (val === undefined || val === null || val.trim() === '') {
+    public isNullOrEmpty(): boolean {
+        if (this.value === undefined || this.value === null || this.value.trim() === '') {
             return true;
         }
         return false;
+    }
+    public toString(): string {
+        return this.value;
     }
 }
