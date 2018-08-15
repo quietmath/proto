@@ -1,0 +1,39 @@
+{
+  "name": "metronical.proto",
+  "version": "0.1.0",
+  "description": "Extension functions for JavaScript data types",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "postinstall": "tsc -p .",
+    "test": "./node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metronical/proto.git"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "strings",
+    "arrays",
+    "numbers",
+    "objects"
+  ],
+  "author": "Michael Szul <michael@szul.us>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/metronical/proto/issues"
+  },
+  "homepage": "https://github.com/metronical/proto#readme",
+  "devDependencies": {
+    "@types/node": "^10.7.0",
+    "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "typescript": "^3.0.1"
+  }
+}
