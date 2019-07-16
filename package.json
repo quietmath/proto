@@ -1,15 +1,15 @@
 {
-  "name": "metronical.proto",
-  "version": "0.1.0",
-  "description": "Extension functions for JavaScript data types",
+  "name": "@metronical/proto",
+  "version": "0.1.1",
+  "description": "Extension functions for JavaScript data types.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "postinstall": "tsc -p .",
-    "test": "./node_modules/.bin/mocha"
+    "build": "tsc -p .",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -30,10 +30,10 @@
   },
   "homepage": "https://github.com/metronical/proto#readme",
   "devDependencies": {
-    "@types/node": "^10.7.0",
+    "@types/node": "^10.14.12",
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "typescript": "^3.0.1"
+    "typescript": "^3.5.3"
   }
 }
