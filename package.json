@@ -1,5 +1,5 @@
 {
-  "name": "@metronical/proto",
+  "name": "@strangelooprun/proto",
   "version": "0.1.1",
   "description": "Extension functions for JavaScript data types.",
   "main": "./lib/index.js",
@@ -8,12 +8,15 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A dist",
+    "postversion": "git push && git push --tags",
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/metronical/proto.git"
+    "url": "git+https://github.com/strangelooprun/proto.git"
   },
   "keywords": [
     "javascript",
@@ -26,14 +29,14 @@
   "author": "Michael Szul <michael@szul.us>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/metronical/proto/issues"
+    "url": "https://github.com/strangelooprun/proto/issues"
   },
-  "homepage": "https://github.com/metronical/proto#readme",
+  "homepage": "https://github.com/strangelooprun/proto#readme",
   "devDependencies": {
     "@types/node": "^10.14.12",
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "typescript": "^3.5.3"
+    "typescript": "^3.7.2"
   }
 }
