@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/strangelooprun/proto#readme",
   "devDependencies": {
-    "@types/node": "^10.14.12",
+    "@types/node": "^10.17.6",
     "mocha": "^5.2.0"
   },
   "dependencies": {
