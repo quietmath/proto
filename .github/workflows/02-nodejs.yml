@@ -1,5 +1,4 @@
-name: Node CI
-
+name: Node Publish
 on:
   release:
     types: [created]
