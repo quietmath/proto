@@ -1,6 +1,6 @@
 {
   "name": "@strangelooprun/proto",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Extension functions for JavaScript data types.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
