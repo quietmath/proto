@@ -131,7 +131,7 @@ class _s implements IString {
         if (this.isNullOrEmpty()) {
             return false;
         }
-        else if (this.lower().toString() === "true" || this.lower().toString() === "1" || this.lower().toString() === "y" || this.lower().toString() === "t") {
+        else if (this.lower().toString() === "true" || this.lower().toString() === "1" || this.lower().toString() === "y" || this.lower().toString() === "t" || this.lower().toString() === "on") {
             return true;
         }
         return false;
