@@ -1,12 +1,8 @@
-import { IArray } from "./types";
+import { IArray } from './schema';
 
 /**
- * @module metronical.proto
+ * @module quietmath/proto
  */
-
-export function a<T>(value: T[]): IArray<T> {
-    return new _a(value);
-}
 
 class _a<T> implements IArray<T> {
     private value: T[];
@@ -23,13 +19,13 @@ class _a<T> implements IArray<T> {
         }
         return false;
     }
-    public each(callback: Function): void {
-        for (let i: number = 0; i < this.value.length; i++) {
+    public each(callback: (i: number, t: any) => void): void {
+        for (let i = 0; i < this.value.length; i++) {
             callback(i, this[i]);
         }
     }
     public remove(item: T): IArray<T> {
-        let index: number = this.value.indexOf(item);
+        const index: number = this.value.indexOf(item);
         if (index != -1) {
             this.value = this.value.splice(index, 1);
             return this;
@@ -37,7 +33,7 @@ class _a<T> implements IArray<T> {
         return null;
     }
     public contains(partial: string, strict: boolean): boolean {
-        for (let i: number = 0; i < this.value.length; i++) {
+        for (let i = 0; i < this.value.length; i++) {
             if (!strict && this[i].contains(partial)) {
                 return true;
             }
@@ -48,7 +44,7 @@ class _a<T> implements IArray<T> {
         return false;
     }
     public indexOfPartial(partial: string): number {
-        for (let i: number = 0; i < this.value.length; i++) {
+        for (let i = 0; i < this.value.length; i++) {
             if (this[i].contains(partial)) {
                 return i;
             }
@@ -59,10 +55,11 @@ class _a<T> implements IArray<T> {
         if (objName === undefined || objName === null) {
             throw 'Error: Property name must be provided for conversion.';
         }
-        let items: any = this;
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const items: any = this;
         if (typeof (items[0]) === 'string' || typeof (items[0]) === 'number' || typeof (items[0]) === 'boolean') {
-            for (let i: number = 0; i < items.length; i++) {
-                let val: any = items[i];
+            for (let i = 0; i < items.length; i++) {
+                const val: any = items[i];
                 items[i] = {};
                 items[i][objName] = val;
             }
@@ -75,4 +72,8 @@ class _a<T> implements IArray<T> {
     public toArray(): T[] {
         return this.value;
     }
+}
+
+export function a<T>(value: T[]): IArray<T> {
+    return new _a(value);
 }

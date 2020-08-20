@@ -1,5 +1,5 @@
 /**
- * @module metronical.proto
+ * @module quietmath/proto
  */
 
 export interface IString {
@@ -35,7 +35,7 @@ export interface INumber {
 export interface IArray<T> {
     empty: () => IArray<T>;
     isEmpty: () => boolean;
-    each: (callback: Function) => void;
+    each: (callback: (i: number, t: any) => void) => void;
     remove: (item: T) => IArray<T>;
     contains: (partial: string, strict: boolean) => boolean;
     indexOfPartial: (partial: string) => number;

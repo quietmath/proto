@@ -1,12 +1,8 @@
-import { INumber } from "./types";
+import { INumber } from './schema';
 
 /**
- * @module metronical.proto
+ * @module quietmath/proto
  */
-
-export function n(value: number): INumber {
-    return new _n(value);
-}
 
 class _n implements INumber {
     private value: number;
@@ -21,7 +17,7 @@ class _n implements INumber {
     }
     public random(min: number, max: number): INumber {
         if (isNaN(min) || isNaN(max)) {
-            throw "Error: Only numbers are accepted as arguments.";
+            throw 'Error: Only numbers are accepted as arguments.';
         }
         this.value = Math.floor(Math.random() * (parseInt(max.toString(), 10) - parseInt(min.toString(), 10) + 1) + parseInt(min.toString(), 10));
         return this;
@@ -29,4 +25,8 @@ class _n implements INumber {
     public toNumber(): number {
         return this.value;
     }
+}
+
+export function n(value: number): INumber {
+    return new _n(value);
 }
