@@ -47,3 +47,9 @@ export interface IObject {
     extend: (data: any) => IObject;
     toObject: () => any;
 }
+
+export interface IHTMLElement {
+    clean: () => IHTMLElement;
+    val: (val?: string) => string | number | boolean;
+    toHTMLElement: () => HTMLElement;
+}
