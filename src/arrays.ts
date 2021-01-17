@@ -74,6 +74,13 @@ class _a<T> implements IArray<T> {
     }
 }
 
+export function range(max: number, min?: number): number[] {
+    if(min == null) {
+        min = 1;
+    }
+    return Array.from(new Array(max), (x, i) => i + min);
+}
+
 export function a<T>(value: T[]): IArray<T> {
     return new _a(value);
 }
