@@ -92,7 +92,7 @@ class _s implements IString {
             const opening: string = matches[i].replace('/', '');
             if (matches[i].indexOf('/') != -1 && tags.indexOf(opening) != -1) {
                 const index: number = tags.indexOf(opening);
-                    tags = tags.splice(index, 1);
+                tags = tags.splice(index, 1);
             }
             else if (matches[i].indexOf('/') != -1) {
                 continue;
