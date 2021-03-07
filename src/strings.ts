@@ -85,13 +85,14 @@ class _s implements IString {
         return this;
     }
     public truncateWordsWithHtml(num: number): IString {
-        const tags: Array<string> = [];
+        let tags: Array<string> = [];
         let truncation: string = this.truncateWords(num).toString();
         const matches: RegExpMatchArray = truncation.match(/<[/]?([^> ]+)[^>]*>/g);
         for (let i = 0; i < matches.length; i++) {
             const opening: string = matches[i].replace('/', '');
             if (matches[i].indexOf('/') != -1 && tags.indexOf(opening) != -1) {
-                (<any>tags).remove(opening);
+                const index: number = tags.indexOf(opening);
+                    tags = tags.splice(index, 1);
             }
             else if (matches[i].indexOf('/') != -1) {
                 continue;

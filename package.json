@@ -1,6 +1,6 @@
 {
   "name": "@quietmath/proto",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Extension functions for JavaScript data types and objects.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
