@@ -22,13 +22,12 @@
     ],
     "reporter": [
       "text",
-      "cobertura",
-      "html"
+      "json-summary"
     ],
     "report-dir": "./.nyc_output/coverage"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p ./tsconfig.json",
     "test": "nyc mocha ./test/*.test.js --ignore ./**/node_modules/**",
     "audit": "npm audit --audit-level=high",
     "eslint": "eslint ./src/*.ts ./src/**/*.ts",
