@@ -1,19 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "declaration": true,
-    "sourceMap": true,
-    "outDir": "./lib",
-    "rootDir": "./src",
-    "types": [
-      "node"
-    ],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "resolveJsonModule": true,
+      "target":"es6",
+      "module": "commonjs",
+      "declaration": true,
+      "sourceMap": true,
+      "outDir": "./lib",
+      "rootDir": "./src",
+      "types": [
+        "node"
+      ],
+      "skipLibCheck": true,
+      "skipDefaultLibCheck": true,
+      "resolveJsonModule": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitReturns": true,
+      "strict": true,
+      "noUnusedLocals": true
   },
   "include": [
-    "src/**/*"
+      "src/**/*"
   ]
 }

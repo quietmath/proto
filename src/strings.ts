@@ -55,7 +55,7 @@ class _s implements IString {
                 return this;
             }
         }
-        return null;
+        return this;
     }
     public capWords(): IString {
         const regexp = /\s/;
@@ -73,7 +73,7 @@ class _s implements IString {
             this.value = result.trim();
             return this;
         }
-        return null;
+        return this;
     }
     public truncateWords(num: number): IString {
         const words: Array<string> = this.value.split(/\s+/);
@@ -87,7 +87,7 @@ class _s implements IString {
     public truncateWordsWithHtml(num: number): IString {
         let tags: Array<string> = [];
         let truncation: string = this.truncateWords(num).toString();
-        const matches: RegExpMatchArray = truncation.match(/<[/]?([^> ]+)[^>]*>/g);
+        const matches = truncation.match(/<[/]?([^> ]+)[^>]*>/g) as RegExpMatchArray;
         for (let i = 0; i < matches.length; i++) {
             const opening: string = matches[i].replace('/', '');
             if (matches[i].indexOf('/') != -1 && tags.indexOf(opening) != -1) {
@@ -157,7 +157,7 @@ class _s implements IString {
                 }
             }
         }
-        return null;
+        return '';
     }
     public setValueByKey(key: string, replacement: string): IString {
         const collection: Array<string> = this.value.split(';');

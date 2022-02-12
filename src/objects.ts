@@ -24,6 +24,6 @@ class _obj implements IObject {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function obj(value: any): IObject {
+export const obj = (value: any): IObject => {
     return new _obj(value);
-}
+};

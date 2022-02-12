@@ -21,7 +21,7 @@ class _a<T> implements IArray<T> {
     }
     public each(callback: (i: number, t: any) => void): void {
         for (let i = 0; i < this.value.length; i++) {
-            callback(i, this[i]);
+            callback(i, (this as any)[i]);
         }
     }
     public remove(item: T): IArray<T> {
@@ -30,14 +30,14 @@ class _a<T> implements IArray<T> {
             this.value = this.value.splice(index, 1);
             return this;
         }
-        return null;
+        return this;
     }
     public contains(partial: string, strict: boolean): boolean {
         for (let i = 0; i < this.value.length; i++) {
-            if (!strict && this[i].contains(partial)) {
+            if (!strict && (this as any)[i].contains(partial)) {
                 return true;
             }
-            if (strict && this[i] === partial) {
+            if (strict && (this as any)[i] === partial) {
                 return true;
             }
         }
@@ -45,7 +45,7 @@ class _a<T> implements IArray<T> {
     }
     public indexOfPartial(partial: string): number {
         for (let i = 0; i < this.value.length; i++) {
-            if (this[i].contains(partial)) {
+            if ((this as any)[i].contains(partial)) {
                 return i;
             }
         }
@@ -74,12 +74,12 @@ class _a<T> implements IArray<T> {
     }
 }
 
-export function range(max: number, min?: number): number[] {
+export const range = (max: number, min?: number): number[] => {
     if(min == null) {
         min = 1;
     }
-    return Array.from(new Array(max), (x, i) => i + min);
-}
+    return Array.from(new Array(max), (x, i) => i + (min as number));
+};
 
 export function a<T>(value: T[]): IArray<T> {
     return new _a(value);

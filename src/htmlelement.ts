@@ -33,7 +33,7 @@ class _helem implements IHTMLElement {
                 }
             }
             else if(s(this.helem.nodeName).lower().toString() == 'input' && this.helem.getAttribute('type') != null) {
-                switch(s(this.helem.getAttribute('type')).lower().toString()) {
+                switch(s(this.helem.getAttribute('type') as string).lower().toString()) {
                     case 'file':
                         break;
                     case 'checkbox':
@@ -45,7 +45,7 @@ class _helem implements IHTMLElement {
                         }
                         break;
                     case 'radio':
-                        const name: string = this.helem.getAttribute('name');
+                        const name = this.helem.getAttribute('name') as string;
                         const radios: NodeListOf<Element> = document.querySelectorAll(`input[type='radio'][name='${ name }']`);
                         radios.forEach((elem: Element) => {
                             if(elem.getAttribute('value') == val) {
@@ -104,15 +104,15 @@ class _helem implements IHTMLElement {
                 else if (this.helem.innerHTML != null && this.helem.innerHTML.trim() != '') {
                     return this.helem.innerHTML;
                 }
-                return null;
+                return '';
             }
             else if(s(this.helem.nodeName).lower().toString() == 'input' && this.helem.getAttribute('type') != null) {
-                switch(s(this.helem.getAttribute('type')).lower().toString()) {
+                switch(s(this.helem.getAttribute('type') as string).lower().toString()) {
                     case 'checkbox':
                         return this.helem.checked;
                     case 'radio':
-                        const name: string = this.helem.getAttribute('name');
-                        return (document.querySelector(`input[type='radio'][name='${ name }']:checked`) != null) ? (document.querySelector(`input[type='radio'][name='${ name }']:checked`) as HTMLInputElement).value : null;
+                        const name = this.helem.getAttribute('name') as string;
+                        return (document.querySelector(`input[type='radio'][name='${ name }']:checked`) != null) ? (document.querySelector(`input[type='radio'][name='${ name }']:checked`) as HTMLInputElement).value : '';
                     case 'time':
                         return this.helem.value;
                     default:
@@ -121,7 +121,7 @@ class _helem implements IHTMLElement {
             }
             else if (s(this.helem.nodeName).lower().toString() == 'select') {
                 if (this.helem.selectedIndex == -1) {
-                    return null;
+                    return '';
                 } else {
                     if (this.helem.multiple) {
                         let values = '';
@@ -137,13 +137,13 @@ class _helem implements IHTMLElement {
                 }
             }
         }
-        return val;
+        return val as string | number | boolean;
     }
     public toHTMLElement(): HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement {
         return this.helem;
     }
 }
 
-export function helem(elem: HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement): IHTMLElement {
+export const helem = (elem: HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement): IHTMLElement => {
     return new _helem(elem);
-}
+};

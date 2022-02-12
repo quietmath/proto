@@ -27,6 +27,6 @@ class _n implements INumber {
     }
 }
 
-export function n(value: number): INumber {
+export const n = (value: number): INumber => {
     return new _n(value);
-}
+};

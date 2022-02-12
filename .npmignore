@@ -1,3 +1,5 @@
 node_modules/
 test/
 example/
+coverage/
+.nyc_output/
